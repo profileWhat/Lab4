@@ -30,26 +30,30 @@ public class Theatre extends Location {
         private final Projector projector;
         private final Rocks rocks;
         private final Wardrobe wardrobe;
+        private Human actorEmma;
+        private Human actorHomsa;
+        private Human actorMoominPapa;
+        private Human actorMisa;
+        private Human actorMulma;
+        public void getActor() throws NotEnoughActorException {
+            for (Human person : getPeople()) {
+                if (person == null) break;
+                switch (person.getHumanName()) {
+                    case "Emma" -> actorEmma = person;
+                    case "Homsa" -> actorHomsa = person;
+                    case "Moomin Papa" -> actorMoominPapa = person;
+                    case "Misa" -> actorMisa = person;
+                    case "Mumla" -> actorMulma = person;
+                }
+            }
+            if (actorEmma == null || actorHomsa == null || actorMoominPapa == null || actorMisa == null || actorMulma == null) {
+                throw new NotEnoughActorException("Кто-то из актёров заболел");
+            }
+        }
         public void performance() {
-            Human actorEmma = null;
-            Human actorHomsa = null;
-            Human actorMoominPapa = null;
-            Human actorMisa = null;
-            Human actorMulma = null;
             Human[] humansUnderRamp = new Human[50];
             try {
-                for (Human person : getPeople()) {
-                    if (person == null) break;
-                    switch (person.getHumanName()) {
-                        case "Emma" -> actorEmma = person;
-                        case "Homsa" -> actorHomsa = person;
-                        case "Moomin Papa" -> actorMoominPapa = person;
-                        case "Misa" -> actorMisa = person;
-                        case "Mumla" -> actorMulma = person;
-                    }
-                }
-                if (actorEmma == null || actorHomsa == null || actorMoominPapa == null || actorMisa == null || actorMulma == null)
-                    throw new NotEnoughActorException("Не хватает актёров для выступления");
+                getActor();
                 actorMoominPapa.useMove(new RewritePiece());
                 actorMisa.useMove(new Cry());
                 actorMisa.useMove(new CramRole());

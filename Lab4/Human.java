@@ -74,12 +74,14 @@ public abstract class Human implements Movable {
     public void killEmbarrass() {
         this.isEmbarrass = false;
     }
-
     public void setPlaceInLocation(String place) {
         placeInLocation = place;
     }
     public String getPlaceInLocation() {
         return placeInLocation;
+    }
+    public Item[] getClothing() {
+        return clothing;
     }
     public void setClothing(Item... items) {
         for(Item item: items) {
